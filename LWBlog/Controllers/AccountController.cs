@@ -14,6 +14,7 @@ using System.Net.Mail;
 
 namespace LWBlog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {

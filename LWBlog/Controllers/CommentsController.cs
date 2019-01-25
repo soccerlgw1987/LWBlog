@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LWBlog.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

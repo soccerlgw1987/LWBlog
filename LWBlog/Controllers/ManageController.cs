@@ -10,6 +10,7 @@ using LWBlog.Models;
 
 namespace LWBlog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

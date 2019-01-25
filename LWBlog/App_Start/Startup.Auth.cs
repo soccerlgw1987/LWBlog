@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using LWBlog.Models;
+using Owin.Security.Providers.LinkedIn;
 
 namespace LWBlog
 {
@@ -58,11 +59,13 @@ namespace LWBlog
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "786443902453-8bqpgmdf3k5ko2opiag2irntmpavon52.apps.googleusercontent.com",
+                ClientSecret = "MoWoCHgrViiFlVqU94eQoJfg"
+            });
+
+            app.UseLinkedInAuthentication("77rusqqf9nvnlz", "THsdkUJ991vMYHST");
         }
     }
 }

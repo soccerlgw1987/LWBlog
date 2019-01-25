@@ -12,6 +12,7 @@ using LWBlog.Models;
 
 namespace LWBlog.Controllers
 {
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
