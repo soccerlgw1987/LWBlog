@@ -1,0 +1,100 @@
+﻿@model LWBlog.Models.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="single">
+    <div class="container">
+        <div class="col-md-8 single-main">
+            <div class="single-grid">
+                @*<img src="~/img/CFlogo.jpg" alt="" />*@
+                @if (Model.MediaURL != null)
+                {
+                    <img class="img-responsive" src="@Model.MediaURL" alt="" />
+                }
+                <h1>
+                    @Model.Title
+                </h1>
+                <p>
+                    @Html.Raw(Model.Body)
+                </p>
+            </div>
+            <ul class="comment-list">
+                <h5 class="post-author_head">Written by Landon Wyant<img src="~/img/HeadPic-small.jpg" class="img-responsive" alt=""></h5>
+                <li>
+                    Created on @Model.Created.ToString("MMMM dd, yyyy")
+                    @if (Model.Updated > Model.Created)
+                    {
+                        <p>Updated on @Model.Updated.Value.ToString("MMMM dd, yyyy") </p>
+                    }
+                    <div class="clearfix"></div>
+                </li>
+            </ul>
+
+
+
+            <div class="content-form">
+                <h3>Comments:</h3>
+                <hr />
+                @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+                {
+                    <p>@Html.Raw(comment.Body)</p>
+                    <p><span class="BlueComment">User: </span> @comment.Author.DisplayName</p>
+                    <p><span class="BlueComment">Created on </span> @comment.Created.ToString("MMMM dd, yyyy h:mm tt")</p>
+                    @*<p>Author: @comment.Author.FirstName @comment.Author.LastName</p>*@
+                    if (comment.Updated > comment.Created)
+                    {
+                        <p class="RedComment">Update Reason: @comment.UpdateReason</p>
+                        <p class="RedComment">Updated on @comment.Updated.Value.ToString("MMMM dd, yyyy h:mm tt")</p>
+                    }
+                    <br />
+                }
+
+                <hr />
+                @if (User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.Slug)
+
+                        <h3>Leave a comment</h3>
+                        @*<div class="form-group">
+                            @Html.Label("Add Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Editor("CommentBody")
+
+                            </div>
+                        </div>*@
+                        @Html.TextArea("commentBody", new { @placeholder = "Comment" })
+                        <br />
+                        <input type="submit" value="Submit" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-md-4 content-right">
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+
+    <script>
+        $(function ()
+        {
+            tinymce.init({
+                selector: '#commentBody'
+            });
+        });
+    </script>
+}

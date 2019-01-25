@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Landon Wyant - Blog</title>
+    <link href="~/Content/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/style.css" rel='stylesheet' type='text/css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Personal Blog Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!----webfonts---->
+    <link href='https://fonts.googleapis.com/css?family=Oswald:100,400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic' rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+    <!---->
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/img/favicon.ico">
+
+</head>
+<body>
+    <!---header---->
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="~/Home/Index"><img src="~/img/Blog-Small.jpg" title="" /></a>
+            </div>
+            <!---start-top-nav---->
+            <div class="top-menu">
+                <div class="search">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                    {
+                        <div class="controls controls-row search-row">
+                            <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" required="" />
+                            <input type="submit" value="" />
+                        </div>
+                    }
+                </div>
+
+                <span class="menu"> </span>
+                <ul>
+                    <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Additional Blog Options", "Index", "BlogPosts")
+                        }
+                    </li>
+                    <li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            @Html.ActionLink("Comment Options", "Index", "Comments")
+                        }
+                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            <li>
+                                @Html.AntiForgeryToken()
+                            </li>
+                            <li>
+                                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            </li>
+                            <li>
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!---//End-top-nav---->
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <!--Footer-->
+    <div class="footer">
+        <div class="container">
+            <p>Copyrights © 2015 Blog All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a> - Custumized by Landon Wyant</p>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <!--end slider -->
+    <!--script-->
+    <script type="text/javascript" src="~/Scripts/move-top.js"></script>
+    <script type="text/javascript" src="~/Scripts/easing.js"></script>
+    <!--/script-->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 900);
+            });
+        });
+    </script>
+
+    <script>
+        $("span.menu").click(function () {
+            $(".top-menu ul").slideToggle("slow", function () {
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", false)
+
+</body>
+</html>

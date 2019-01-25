@@ -1,0 +1,173 @@
+﻿@model LWBlog.Models.EmailModel
+
+@*<div class="contact-content">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Contact Me</h2>
+                <p>Feel free to contact me at anytime. I will respond as soon as possible. Also, be sure to follow me on LinkedIn or GitHub!</p>
+            </div>
+            <div class="contact-details">
+                <form>
+                    <input type="text" placeholder="Name" required />
+                    <input type="text" placeholder="Email" required />
+
+                    <textarea placeholder="Message"></textarea>
+                    <input type="submit" value="SEND" />
+                </form>
+            </div>
+            <div class="contact-details">
+
+                <div class="col-md-12 company_address">
+                    <h4>Feel free to contact me:</h4>
+                    <p>Archdale, NC</p>
+                    <p>Phone:(336) 708 2802</p>
+                    <p>Email: <a href="mailto:soccerlgw1987@yahoo.com">soccerlgw1987@yahoo.com</a></p>
+                    <p>Contact me on: <a href="https://www.linkedin.com/in/landon-wyant-40531089/" target="_blank">LinkedIn</a>, <a href="https://github.com/soccerlgw1987" target="_blank">GitHub</a></p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+
+
+<div class="contact-content">
+    <div class="container">
+        <div class="contact-info">
+            <h2>Contact Me</h2>
+            <p>Feel free to contact me at anytime. I will respond as soon as possible. Also, be sure to follow me on LinkedIn or GitHub!</p>
+        </div>
+        <div class="contact-details">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <br />
+                @*<div class="contact-details">
+                <form>
+                    <input type="text" placeholder="Name" required />
+                    <input type="text" placeholder="Email" required />
+
+                    <textarea placeholder="Message"></textarea>
+                    <input type="submit" value="SEND" />
+                </form>
+            </div>*@
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-4 fixIndent">
+                        @Html.TextBoxFor(m => m.FromName, new { @placeholder = "Name" })
+                        @*@Html.ValidationMessageFor(m => m.FromName)*@
+                    </div>
+
+                    @*@Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-4 fixIndent">
+                        @Html.TextBoxFor(m => m.FromEmail, new { @placeholder = "Email" })
+                        @*@Html.ValidationMessageFor(m => m.FromEmail)*@
+                    </div>
+
+                    @*@Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-4 fixIndent">
+                        @Html.TextBoxFor(m => m.Subject, new { @placeholder = "Subject" })
+                        @*@Html.ValidationMessageFor(m => m.Subject)*@
+                    </div>
+
+                    @*@Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-md-12 fixIndent">
+                        @Html.TextAreaFor(m => m.Body, new { @placeholder = "Message" })
+                        @*@Html.ValidationMessageFor(m => m.Body)*@
+                        <br />
+                    </div>
+                </div>
+
+                <input type="submit" value="SEND" />
+
+                <div class="contact-details">
+                    <div class="col-md-12 company_address">
+                        <h4>Feel free to contact me:</h4>
+                        <p>Archdale, NC</p>
+                        <p>Phone:(336) 708 2802</p>
+                        <p>Email: <a href="mailto:soccerlgw1987@yahoo.com">soccerlgw1987@yahoo.com</a></p>
+                        <p>Contact me on: <a href="https://www.linkedin.com/in/landon-wyant-40531089/" target="_blank">LinkedIn</a>, <a href="https://github.com/soccerlgw1987" target="_blank">GitHub</a></p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+
+    <script>
+        $(function ()
+        {
+            tinymce.init({
+                selector: '#Body'
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+@*@model LWBlog.Models.EmailModel*@
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h4>Send me a message.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
+                @Html.ValidationMessageFor(m => m.FromEmail)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Subject" })
+                @Html.ValidationMessageFor(m => m.Subject)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Body, new { @class = "form-control", placeholder = "Body" })
+                @Html.ValidationMessageFor(m => m.Body)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Send" />
+            </div>
+        </div>
+
+    }*@

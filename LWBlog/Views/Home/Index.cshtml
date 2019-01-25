@@ -1,0 +1,123 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using LWBlog.Helpers;
+
+@model IPagedList<LWBlog.Models.BlogPost>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+
+<div class="content">
+    <div class="container">
+        <div class="content-grids">
+            <div class="col-md-8 content-main">
+                <div class="content-grid">
+                    @foreach (var blog in Model.OrderByDescending(b => b.Created))
+                    {
+                        if (blog.Published)
+                        {
+                            if ((blog.Created - DateTime.Now).TotalDays <= 30)
+                            {
+                                <div class="content-grid-info">
+                                    @*<img src="~/img/CFlogo.jpg" alt="" />*@
+                                    @if (blog.MediaURL != null)
+                                    {
+                                        <img class="img-responsive" id="ImageScale" src="@blog.MediaURL" alt="" />
+                                    }
+                                    <div class="post-info">
+                                        <h4>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null) @blog.Created.ToString("MMMM dd, yyyy")</h4>
+
+                                        <p>@blog.Abstract</p>
+
+                                        <a href=@Url.Action("Details", "BlogPosts", new { slug = blog.Slug })><span></span>READ MORE</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @*<div class="content-grid-info">
+                    <img src="~/img/CFlogo.jpg" alt="" />
+                    <div class="post-info">
+                        <h4>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null) @blog.Created.ToString("MMMM dd, yyyy")</h4>
+
+                        <p>@blog.Abstract</p>
+
+                        <a href=@Url.Action("Details","BlogPosts",new { slug = blog.Slug})><span></span>READ MORE</a>
+                    </div>
+                </div>*@
+                    }
+                </div>
+                <div id="PageInfo">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                </div>
+                @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr=ViewBag.Search }))*@
+            </div>
+            <div class="col-md-4 content-right">
+                <div class="recent">
+                    <h3>RECENT POSTS</h3>
+                    <ul>
+                        @foreach (var blog in BPHelper.GetRecentPosts())
+                        {
+                            
+                                
+                                    <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
+                              
+                            
+                        }
+                    </ul>
+                </div>
+                @*<div class="comments">
+                    <h3>RECENT COMMENTS</h3>
+                    <ul>
+                        @foreach (var blog in Model)
+                        {
+                            <li><a href="#">@blog.DisplayName</a> on <a href="#">Hello World!</a></li>
+                        }
+                    </ul>
+                </div>*@
+                @*<div class="archives">
+                    <h3>RECENT COMMENTS</h3>
+                    <ul>
+                        @foreach (var blogComment in Model.OrderByDescending(c => c.Created))
+                        {
+                            if (blogComment.Published)
+                            {
+                                if ((blogComment.Created - DateTime.Now).TotalDays > 30)
+                                {
+                                    <li>@Html.ActionLink(blogComment.Title, "Details", "BlogPosts", new { slug = blogComment.Slug }, null)</li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>*@
+
+
+
+
+
+
+                <div class="archives">
+                    <h3>ARCHIVES</h3>
+                    <ul>
+                        @foreach (var blog in Model.OrderByDescending(b => b.Created))
+                        {
+                            if (blog.Published)
+                            {
+                                if ((blog.Created - DateTime.Now).TotalDays > 30)
+                                {
+                                    <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))*@
