@@ -39,16 +39,17 @@
                 <hr />
                 @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
                 {
-                    <p>@Html.Raw(comment.Body)</p>
-                    <p><span class="BlueComment">User: </span> @comment.Author.DisplayName</p>
-                    <p><span class="BlueComment">Created on </span> @comment.Created.ToString("MMMM dd, yyyy h:mm tt")</p>
-                    @*<p>Author: @comment.Author.FirstName @comment.Author.LastName</p>*@
-                    if (comment.Updated > comment.Created)
-                    {
-                        <p class="RedComment">Update Reason: @comment.UpdateReason</p>
-                        <p class="RedComment">Updated on @comment.Updated.Value.ToString("MMMM dd, yyyy h:mm tt")</p>
-                    }
-                    <br />
+                    <ul class="comment-list" id="Comments">
+                        <p>@Html.Raw(comment.Body)</p>
+                        <p><span class="BlueComment">User: </span> @comment.Author.DisplayName</p>
+                        <p><span class="BlueComment">Created on </span> @comment.Created.ToString("MMMM dd, yyyy h:mm tt")</p>
+                        @*<p>Author: @comment.Author.FirstName @comment.Author.LastName</p>*@
+                        @if (comment.Updated > comment.Created)
+                        {
+                            <p class="RedComment">Update Reason: @comment.UpdateReason</p>
+                            <p class="RedComment">Updated on @comment.Updated.Value.ToString("MMMM dd, yyyy h:mm tt")</p>
+                        }                        
+                    </ul>
                 }
 
                 <hr />

@@ -922,3 +922,12 @@ padding-left:290px;
 width: 700px;
 height: 400px;
 }
+#Comments {
+    border: 3px solid #BAB6B6;
+    padding: 1em;
+    margin: 3em 0;
+    list-style: none;
+}
+.form-control {
+width:40%;
+}

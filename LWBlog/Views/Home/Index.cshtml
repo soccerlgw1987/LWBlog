@@ -59,11 +59,12 @@
                     <ul>
                         @foreach (var blog in BPHelper.GetRecentPosts())
                         {
-                            
-                                
-                                    <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
-                              
-                            
+
+                            if ((DateTime.Now - blog.Created).TotalDays <= 5)
+                            {
+                                <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
+                            }
+
                         }
                     </ul>
                 </div>
@@ -99,16 +100,16 @@
 
                 <div class="archives">
                     <h3>ARCHIVES</h3>
+                    <h5>OLDER THAN 5 DAYS</h5>
                     <ul>
-                        @foreach (var blog in Model.OrderByDescending(b => b.Created))
+                        @foreach (var blog in BPHelper.GetRecentPosts())
                         {
-                            if (blog.Published)
+
+                            if ((DateTime.Now - blog.Created).TotalDays > 5)
                             {
-                                if ((blog.Created - DateTime.Now).TotalDays > 30)
-                                {
-                                    <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
-                                }
+                                <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
                             }
+
                         }
                     </ul>
                 </div>

@@ -577,6 +577,12 @@
     <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Uploads\Blog2.jpg" />
+    <Content Include="Uploads\BlogUpload.jpg" />
+    <Content Include="Uploads\BugTracker.jpg" />
+    <Content Include="Uploads\CFlogo.jpg" />
+    <Content Include="Uploads\Qlik.jpg" />
+    <Content Include="Uploads\Qlikview1.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -636,7 +642,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
