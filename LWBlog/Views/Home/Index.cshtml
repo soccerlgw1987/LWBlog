@@ -60,7 +60,7 @@
                         @foreach (var blog in BPHelper.GetRecentPosts())
                         {
 
-                            if ((DateTime.Now - blog.Created).TotalDays <= 5)
+                            if ((DateTime.Now - blog.Created).TotalDays <= 30)
                             {
                                 <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
                             }
@@ -100,12 +100,12 @@
 
                 <div class="archives">
                     <h3>ARCHIVES</h3>
-                    <h5>OLDER THAN 5 DAYS</h5>
+                    <h5>OLDER THAN 30 DAYS</h5>
                     <ul>
                         @foreach (var blog in BPHelper.GetRecentPosts())
                         {
 
-                            if ((DateTime.Now - blog.Created).TotalDays > 5)
+                            if ((DateTime.Now - blog.Created).TotalDays > 30)
                             {
                                 <li>@Html.ActionLink(blog.Title, "Details", "BlogPosts", new { slug = blog.Slug }, null)</li>
                             }
