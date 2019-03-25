@@ -579,6 +579,7 @@
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Uploads\Blog2.jpg" />
     <Content Include="Uploads\BlogUpload.jpg" />
+    <Content Include="Uploads\BugTracker-Blog.jpg.png" />
     <Content Include="Uploads\BugTracker.jpg" />
     <Content Include="Uploads\CFlogo.jpg" />
     <Content Include="Uploads\Qlik.jpg" />

@@ -136,7 +136,7 @@ namespace LWBlog.Controllers
                     image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
                     blogPost.MediaURL = "/Uploads/" + fileName;
                 }
-
+                
                 blogPost.Slug = Slug;
                 blogPost.Updated = DateTimeOffset.Now;
                 db.Entry(blogPost).State = EntityState.Modified;
